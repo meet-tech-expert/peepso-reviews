@@ -11,7 +11,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 PeepSoReviews
 
-
+![Alt text](https://github.com/meet-tech-expert/peepso-reviews/blob/master/assets/images/loading.gif "Optional title")
 
 == Changelog ==
 
