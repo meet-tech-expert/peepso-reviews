@@ -11,7 +11,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 PeepSoReviews
 
-![Alt text](https://images.findyourreptile.com/images/2024/12/01103547/review-add.jpg "Optional title")
+![Alt text](https://images.findyourreptile.com/images/2024/12/01103547/review-add.jpg)
 
 == Changelog ==
 
