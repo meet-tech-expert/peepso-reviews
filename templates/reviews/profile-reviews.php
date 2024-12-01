@@ -28,9 +28,14 @@
             $num_pages = ceil($totalReviews / $limit);
             ?>
             <div class="ps-review-btn">
-                <div class="review-headline"><?php echo ($totalReviews == 0) ? sprintf(__('%s has yet to receive a review. Be the first to review %s.', 'peepsoreviews'), $PeepSoUser->get_fullname(), $PeepSoUser->get_fullname()) : '';
-                                                ?></div>
-                <?php if (is_user_logged_in() &&  get_current_user_id() != $PeepSoUser->get_id()) { ?>
+                <?php if (!is_user_logged_in()) { ?>
+                    <div class="review-headline"><?php echo ($totalReviews == 0) ? sprintf(__('%s has yet to receive a review. You must be logged in to leave %s a review.', 'peepsoreviews'), $PeepSoUser->get_fullname(), $PeepSoUser->get_fullname()) : ''; ?></div>
+                <?php } else {
+                ?>
+                    <div class="review-headline"><?php echo ($totalReviews == 0) ? sprintf(__('%s has yet to receive a review. Be the first to review %s.', 'peepsoreviews'), $PeepSoUser->get_fullname(), $PeepSoUser->get_fullname()) : ''; ?></div>
+                <?php
+                }
+                if (is_user_logged_in() &&  get_current_user_id() != $PeepSoUser->get_id()) { ?>
                     <a href="#" class="ps-btn ps-btn--sm ps-btn--action review_btn" <?php if (is_user_logged_in()) { ?> onclick="openReviewFormModal(this);return false;" <?php } else { ?> onclick="openReviewLoginModal(this);return false;" <?php } ?> data-avatar="<?php echo $PeepSoUser->get_avatar('full'); ?>" data-name="<?php echo $PeepSoUser->get_fullname(); ?>"><?php echo __('Submit Review', 'peepsoreviews') ?></a>
                 <?php } ?>
             </div>

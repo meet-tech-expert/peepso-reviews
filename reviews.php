@@ -376,15 +376,40 @@ class PeepSoReviews
 
         return ($emails);
     }
+    public function get_review($review_id)
+    {
+        $review = get_post($review_id);
+        $data = array();
+        if ($review && !is_null($review)) {
+            $data['title'] = $review->post_title;
+            $data['description'] = $review->post_content;
+            $data['star_rating'] = get_field('review_rating', $review_id);
+            $images = get_field('review_images', $review_id);
+            $image_html = '<div style="display:flex;">';
+            if ($images) {
+                foreach ($images as $image_id) {
+                    $image_html .= '<img width="150" height="105" src="' . wp_get_attachment_image_url($image_id, 'adverts-upload-thumbnail') . ' " style="margin:0 10px;">';
+                }
+            }
+            $image_html .= '</iv>';
+            $data['images'] = $image_html;
+        }
+        return $data;
+    }
     public function send_email_review($view_user_id, $review_id)
     {
+        $review_data = $this->get_review($review_id);
         $_user    =  PeepSouser::get_instance($view_user_id);
         $data['userfullname'] = $_user->get_fullname();
         $profile_slug   = PeepSo::get_option('reviews_profiles_slug', 'reviews', TRUE);
         $data['profileurl']   = $_user->get_profileurl() . $profile_slug;
         $current_user = PeepSouser::get_instance(get_current_user_id());
         $data['fromfullname'] = $current_user->get_fullname();
-        PeepSoMailQueue::add_message($_user->get_id(), $data, __('{sitename} - New Review Received', 'peepsoreviews'), "review_message", "review_message", 0, 1, 1);
+        $data['review_title'] = $review_data['title'];
+        $data['star_rating'] = $review_data['star_rating'];
+        $data['review_experience'] = $review_data['description'];
+        $data['review_images'] = $review_data['images'];
+        PeepSoMailQueue::add_message($_user->get_id(), $data, __('New Review Received - Find Your Reptile', 'peepsoreviews'), "review_message", "review_message", 0, 1, 1);
     }
 }
 

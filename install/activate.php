@@ -44,9 +44,15 @@ class PeepSoReviewsInstall extends PeepSoInstall
 		$emails = array(
 			'email_review_message' => "Hi {userfullname},
 
-{fromfullname} posted a review on your profile!
+Review From: {fromfullname}
 
-You can visit your profile here: {profileurl}
+Title: {review_title}
+
+Star Rating: {star_rating}
+
+Feedback: {review_experience}
+
+Images: {review_images} 
 
 Thank you.",
 		);
